@@ -9,8 +9,8 @@ public class FileFinder {
     private final Files files = new Files();
     private final Pattern pattern;
 
-    public FileFinder(String root, Pattern filter) {
-        rootDir = new File(root);
+    public FileFinder(File root, Pattern filter) {
+        rootDir = root;
         pattern = filter;
     }
 
@@ -20,8 +20,8 @@ public class FileFinder {
     }
 
     private void visitAllFiles(File dir) {
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
+        String[] children;
+        if (dir.isDirectory() && (children = dir.list()) != null) {
             for (int i = 0; i < children.length; i++) {
                 visitAllFiles(new File(dir, children[i]));
             }
@@ -31,7 +31,7 @@ public class FileFinder {
     }
 
     private void addIfMatches(File dir) {
-        if(pattern.matcher(dir.getName()).matches())
-            files.add(dir);
+        if(dir.isFile() && pattern.matcher(dir.getName()).matches())
+            files.add(new LocalFile(rootDir.getAbsolutePath(),dir));
     }
 }

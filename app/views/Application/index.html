@@ -1,4 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Tradução de Continuous Delivery' /}
 
-${dummyValue}
+<ul>
+    #{list items:files, as:'file' }
+        <li><a href="${filesRootPath}/${file.relativePath}">${file.name}</a></li>
+    #{/list}
+</ul>

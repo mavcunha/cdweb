@@ -7,3 +7,4 @@ require:
     - org.jmock -> jmock-legacy ]2.5,)
     - cglib -> cglib-nodep ]2.2,):
         force: true
+    - commons-lang ]2.5,)
