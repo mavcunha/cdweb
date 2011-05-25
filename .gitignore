@@ -1,6 +1,11 @@
+# mac dirt
 .DS_Store
+# classes, bytecode ....
 tmp/
 out/
+# safe to ignore, play creates it.
+lib/
+# intellij project files.
 *.iml
 *.ipr
 *.iws
