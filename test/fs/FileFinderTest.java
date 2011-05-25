@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,9 +15,9 @@ public class FileFinderTest extends UnitTest {
 
     @Test
     public void shouldReturnFilesFoundGivenAPattern() {
-        FileFinder ff = new FileFinder(new File("test/data"), Pattern.compile(".*\\.rtf$"));
+        FileFinder ff = new FileFinder(new File("test/data"));
 
-        Files files = ff.find();
+        Files files = ff.find(Pattern.compile(".*\\.rtf$"));
 
         Iterator<File> iterator = files.iterator();
         Iterator<File> expected = testFiles().iterator();
@@ -32,22 +30,22 @@ public class FileFinderTest extends UnitTest {
 
     @Test
     public void returnAEmptyFilesIfNoFilesCanBeFound() {
-        FileFinder ff = new FileFinder(new File("test/data"), Pattern.compile("^$"));
-        for(File f : ff.find()) {
+        FileFinder ff = new FileFinder(new File("test/data"));
+        for(File f : ff.find(Pattern.compile("^$"))) {
             fail("Wrongly found file " + f.getAbsolutePath());
         }
     }
 
     @Test
     public void shouldNotGiveANPEIfListReturnsNull() {
-        final File file = mock(File.class);
+        final File baseDir = mock(File.class);
 
-        when(file.isDirectory()).thenReturn(true);
-        when(file.list()).thenReturn(null);
-        when(file.isFile()).thenReturn(false);
+        when(baseDir.isDirectory()).thenReturn(true);
+        when(baseDir.list()).thenReturn(null);
+        when(baseDir.isFile()).thenReturn(false);
 
-        FileFinder ff = new FileFinder(file, Pattern.compile(".*"));
-        ff.find();
+        FileFinder ff = new FileFinder(baseDir);
+        ff.find(Pattern.compile(".*"));
     }
 
     private Files testFiles() {

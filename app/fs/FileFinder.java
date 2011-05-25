@@ -7,31 +7,29 @@ public class FileFinder {
 
     private final File rootDir;
     private final Files files = new Files();
-    private final Pattern pattern;
 
-    public FileFinder(File root, Pattern filter) {
+    public FileFinder(File root) {
         rootDir = root;
-        pattern = filter;
     }
 
-    public Files find() {
-        visitAllFiles(rootDir);
+    public Files find(Pattern filter) {
+        visitAllFiles(rootDir, filter);
         return files;
     }
 
-    private void visitAllFiles(File dir) {
+    private void visitAllFiles(File dir, Pattern filter) {
         String[] children;
         if (dir.isDirectory() && (children = dir.list()) != null) {
             for (int i = 0; i < children.length; i++) {
-                visitAllFiles(new File(dir, children[i]));
+                visitAllFiles(new File(dir, children[i]), filter);
             }
         } else {
-            addIfMatches(dir);
+            addIfMatches(dir, filter);
         }
     }
 
-    private void addIfMatches(File dir) {
-        if(dir.isFile() && pattern.matcher(dir.getName()).matches())
+    private void addIfMatches(File dir, Pattern filter) {
+        if(dir.isFile() && filter.matcher(dir.getName()).matches())
             files.add(new LocalFile(rootDir.getAbsolutePath(),dir));
     }
 }

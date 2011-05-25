@@ -14,7 +14,7 @@ public class Application extends Controller {
     private static File pathToFiles = new File(Play.applicationPath, filesRootPath);
 
     public static void index() {
-        Files files = new FileFinder(pathToFiles, Pattern.compile(".*\\.rtf$")).find();
+        Files files = new FileFinder(pathToFiles).find(Pattern.compile(".*\\.rtf$"));
         renderArgs.put("filesRootPath", filesRootPath);
         render(files);
     }
