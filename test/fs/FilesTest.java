@@ -1,24 +1,15 @@
 package fs;
 
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import play.test.UnitTest;
 
 import java.io.File;
 import java.util.Iterator;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.mock;
 
-@RunWith(JMock.class)
-public class FilesTest {
-
-    private final Mockery context = new JUnit4Mockery(){{
-        setImposteriser(ClassImposteriser.INSTANCE);
-    }};
+public class FilesTest extends UnitTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void tryToAddANullAsAFileWillRaiseException() {
@@ -27,7 +18,7 @@ public class FilesTest {
 
     @Test
     public void shouldAcceptBeingUseOnForeach() {
-        File file = context.mock(File.class);
+        File file = mock(File.class);
 
         Files files = new Files();
         files.add(file);

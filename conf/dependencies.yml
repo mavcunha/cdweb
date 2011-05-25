@@ -2,9 +2,5 @@
 
 require:
     - play
-    - org.jmock -> jmock ]2.5,)
-    - org.jmock -> jmock-junit4 ]2.5,)
-    - org.jmock -> jmock-legacy ]2.5,)
-    - cglib -> cglib-nodep ]2.2,):
-        force: true
+    - org.mockito -> mockito-all ]1.8,) 
     - commons-lang ]2.5,)

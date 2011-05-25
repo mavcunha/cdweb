@@ -1,24 +1,19 @@
 package fs;
 
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import play.test.UnitTest;
 
 import java.io.File;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class FileFinderTest {
-
-    private final Mockery context = new JUnit4Mockery(){{
-        setImposteriser(ClassImposteriser.INSTANCE);
-    }};
+public class FileFinderTest extends UnitTest {
 
     @Test
     public void shouldReturnFilesFoundGivenAPattern() {
@@ -45,15 +40,11 @@ public class FileFinderTest {
 
     @Test
     public void shouldNotGiveANPEIfListReturnsNull() {
-        final File file = context.mock(File.class);
-        context.checking(new Expectations() {{
-            allowing(file).isDirectory();
-            will(returnValue(true));
-            allowing(file).list();
-            will(returnValue(null));
-            allowing(file).isFile();
-            will(returnValue(false));
-        }});
+        final File file = mock(File.class);
+
+        when(file.isDirectory()).thenReturn(true);
+        when(file.list()).thenReturn(null);
+        when(file.isFile()).thenReturn(false);
 
         FileFinder ff = new FileFinder(file, Pattern.compile(".*"));
         ff.find();
