@@ -1,6 +1,7 @@
 package fs;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class FileFinder {
@@ -20,6 +21,7 @@ public class FileFinder {
     private void visitAllFiles(File dir, Pattern filter) {
         String[] children;
         if (dir.isDirectory() && (children = dir.list()) != null) {
+            Arrays.sort(children);
             for (int i = 0; i < children.length; i++) {
                 visitAllFiles(new File(dir, children[i]), filter);
             }
