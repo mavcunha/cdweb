@@ -10,7 +10,7 @@ public class LocalFileTest extends UnitTest {
     public void shouldKnowItsRelativePath() {
         File f = new File("/some/long/complete/path/file.txt");
         LocalFile lf = new LocalFile("/some/long/complete", f);
-        assertEquals(lf.getRelativePath(),"path/file.txttttttt");
+        assertEquals(lf.getRelativePath(),"path/file.txt");
     }
 
     @Test
