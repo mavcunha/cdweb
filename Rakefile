@@ -23,11 +23,13 @@ end
 task :start_server do 
   puts `#{PLAY} start #{PROD_FLAG}` 
   fail "Fail to start Play!" if $?.exitstatus != 0
+  puts "DONE!"
 end
 
 task :stop_server do
   puts `#{PLAY} stop #{PROD_FLAG}`
-  fail "Fail to stop Play!"if $?.exitstatus != 0
+  fail "Fail to stop Play!" if $?.exitstatus != 0
+  puts "DONE!"
 end
 
 task :restart_server => [:stop_server,:start_server]
