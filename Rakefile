@@ -5,7 +5,12 @@ require 'rake/packagetask'
 PLAY = `which play`.chomp 
 DEPLOY_DIR = ENV['PLAY_DEPLOY_DIR'] || '/tmp'
 PROD_FLAG  = ENV['PLAY_PROD_FLAG'] ? '--%prod' : ''
-SUDO_BIN = `which sudo`.chomp if ! PROD_FLAG.empty?
+
+if PROD_FLAG.empty?
+  SUDO_BIN = ''
+else
+  SUDO_BIN = `which sudo`.chomp
+end
 
 abort "Could not find play on PATH" if PLAY.empty?
 
