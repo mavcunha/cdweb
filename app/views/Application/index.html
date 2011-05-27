@@ -3,6 +3,6 @@
 
 <ul>
     #{list items:files, as:'file' }
-        <li><a href="${filesRootPath}/${file.relativePath}">${file.name}</a></li>
+        <li><a href="${filesRootPath}/${file.relativePath}">${file.relativePath}</a></li>
     #{/list}
 </ul>
