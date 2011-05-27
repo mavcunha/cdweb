@@ -4,6 +4,7 @@ require 'rake/packagetask'
 
 PLAY = `which play`.chomp 
 DEPLOY_DIR = ENV['PLAY_DEPLOY_DIR'] || '/tmp'
+PROD_FLAG  = ENV['PLAY_PROD_FLAG'] ? '--%prod' : ''
 
 abort "Could not find play on PATH" if PLAY.empty?
 
@@ -20,14 +21,16 @@ task :tests do
 end
 
 task :start_server do 
-  puts `#{PLAY} start ` 
+  puts `#{PLAY} start #{PROD_FLAG}` 
   fail "Fail to start Play!" if $?.exitstatus != 0
 end
 
 task :stop_server do
-  puts `#{PLAY} stop `
+  puts `#{PLAY} stop #{PROD_FLAG}`
   fail "Fail to stop Play!"if $?.exitstatus != 0
 end
+
+task :restart_server => [:stop_server,:start_server]
 
 task :clean_deploy_dir do
  FileUtils.rm_r Dir["#{DEPLOY_DIR}/cdweb/*"]
