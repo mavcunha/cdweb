@@ -20,13 +20,13 @@ task :tests do
 end
 
 task :start_server do
-  Dir.chdir(DEPLOY_DIR) do 
+  Dir.chdir(File.join(DEPLOY_DIR,'cdweb')) do 
     run_this "#{SUDO_BIN} #{PLAY} start #{PROD_FLAG}" 
   end
 end
 
 task :stop_server do
-  Dir.chdir(DEPLOY_DIR) do
+  Dir.chdir(File.join(DEPLOY_DIR,'cdweb')) do
     run_this "#{SUDO_BIN} #{PLAY} stop #{PROD_FLAG}"
   end
 end
