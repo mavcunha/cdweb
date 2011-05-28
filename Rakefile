@@ -10,7 +10,7 @@ SUDO_BIN = PROD_FLAG.empty? ? '' : `which sudo`.chomp
 abort "Could not find play on PATH" if PLAY.empty?
 
 task :dependencies do
-  run_this "#{PLAY} dependencies --sync --verbose"
+  out = run_this "#{PLAY} dependencies --sync --verbose"
   fail "Problems solving dependencies" if out.include? "UNRESOLVED DEPENDENCIES"
 end
 
@@ -50,7 +50,8 @@ end
 private 
  def run_this(command)
   puts "running: #{command} (pwd:#{Dir.pwd})"
-  puts `#{command}`
+  puts out = `#{command}`
   fail "Fail to start/stop Play!" if $?.exitstatus != 0
+  out
  end
 
