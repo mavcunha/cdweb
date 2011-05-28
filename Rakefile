@@ -27,13 +27,13 @@ task :tests do
 end
 
 task :start_server do 
-  puts `#{SUDO_BIN} #{PLAY} start #{PROD_FLAG}` 
+  puts `#{SUDO_BIN} #{PLAY} start #{PROD_FLAG} #{DEPLOY_DIR}` 
   fail "Fail to start Play!" if $?.exitstatus != 0
   puts "DONE!"
 end
 
 task :stop_server do
-  puts `#{SUDO_BIN} #{PLAY} stop #{PROD_FLAG}`
+  puts `#{SUDO_BIN} #{PLAY} stop #{PROD_FLAG} #{DEPLOY_DIR}`
   fail "Fail to stop Play!" if $?.exitstatus != 0
   puts "DONE!"
 end
