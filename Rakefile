@@ -1,7 +1,6 @@
 # vim: ts=2 sw=2 expandtab number
 require 'fileutils'
 require 'rake/packagetask'
-require 'daemons'
 
 PLAY = `which play`.chomp 
 DEPLOY_DIR = ENV['PLAY_DEPLOY_DIR'] || '/tmp'
@@ -22,10 +21,8 @@ end
 
 task :start_server do
   Dir.chdir(File.join(DEPLOY_DIR,'cdweb')) do
-    run_this "#{SUDO_BIN} #{PLAY} start #{PROD_FLAG}" 
+    sh "nohup #{SUDO_BIN} #{PLAY} start #{PROD_FLAG} &" 
   end
-  # go job needs this to detach the agent
-  Daemons.daemonize
 end
 
 task :stop_server do
