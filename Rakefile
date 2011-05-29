@@ -34,7 +34,9 @@ end
 task :restart_server => [:stop_server,:start_server]
 
 task :clean_deploy_dir do
- FileUtils.rm_r Dir["#{DEPLOY_DIR}/cdweb/*"]
+ Dir.chdir(DEPLOY_DIR) do
+   run_this "#{SUDO_BIN} rm -Rf cdweb/*"
+ end
 end
 
 task :deploy => [:package,:clean_deploy_dir] do
