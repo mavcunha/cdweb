@@ -21,7 +21,7 @@ end
 
 task :start_server do
   Dir.chdir(File.join(DEPLOY_DIR,'cdweb')) do
-    sh "nohup #{SUDO_BIN} #{PLAY} start #{PROD_FLAG} &" 
+    run_this "#{SUDO_BIN} #{PLAY} start #{PROD_FLAG}"
   end
 end
 
@@ -30,8 +30,6 @@ task :stop_server do
     run_this "#{SUDO_BIN} #{PLAY} stop #{PROD_FLAG}"
   end
 end
-
-task :restart_server => [:stop_server,:start_server]
 
 task :clean_deploy_dir do
  Dir.chdir(DEPLOY_DIR) do
