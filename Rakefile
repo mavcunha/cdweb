@@ -14,6 +14,13 @@ task :dependencies do
   fail "Problems solving dependencies" if out.include? "UNRESOLVED DEPENDENCIES"
 end
 
+task :deps_after_deploy do
+  Dir.chdir(File.join(DEPLOY_DIR,'cdweb') do
+    out = run_this "#{PLAY} dependencies --sync --verbose"
+    fail "Problems solving dependencies" if out.include? "UNRESOLVED DEPENDENCIES"
+  end
+end
+
 task :tests do
   run_this "#{PLAY} auto-test 2>&1 "
   fail "Tests failed" if File.exist? "test-result/result.failed"
