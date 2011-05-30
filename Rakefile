@@ -15,7 +15,7 @@ task :dependencies do
 end
 
 task :deps_after_deploy do
-  Dir.chdir(File.join(DEPLOY_DIR,'cdweb') do
+  Dir.chdir(File.join(DEPLOY_DIR,'cdweb')) do
     out = run_this "#{PLAY} dependencies --sync --verbose"
     fail "Problems solving dependencies" if out.include? "UNRESOLVED DEPENDENCIES"
   end
