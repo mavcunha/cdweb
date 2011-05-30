@@ -1,6 +1,6 @@
 # Application dependencies
 
 require:
-    - play
+    - play -> secure
     - org.mockito -> mockito-all ]1.8,) 
     - commons-lang ]2.5,)
