@@ -30,8 +30,8 @@ public class FileFinder {
         }
     }
 
-    private void addIfMatches(File dir, Pattern filter) {
-        if(dir.isFile() && filter.matcher(dir.getName()).matches())
-            files.add(new LocalFile(rootDir.getAbsolutePath(),dir));
+    private void addIfMatches(File file, Pattern filter) {
+        if(file.isFile() && filter.matcher(file.getName()).matches())
+            files.add(new LocalFile(rootDir.getAbsolutePath(),file));
     }
 }

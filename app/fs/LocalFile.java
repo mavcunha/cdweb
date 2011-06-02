@@ -1,8 +1,11 @@
 package fs;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
+
+import static org.apache.commons.io.FilenameUtils.*;
 
 public class LocalFile extends File {
     private final String partialPath;
@@ -14,8 +17,16 @@ public class LocalFile extends File {
         this.partialPath = partialPath;
     }
 
-    public String getRelativePath() {
+    public String getWebPath() {
         String s = realFile.getAbsolutePath().substring(partialPath.length());
         return StringUtils.removeStart(s, File.separator);
+    }
+
+    public String getNameWithoutExt() {
+        return removeExtension(getName());
+    }
+
+    public String getRelativePath() {
+        return getPathNoEndSeparator(FilenameUtils.getPath(getWebPath()));
     }
 }
