@@ -1,8 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'Tradução de Continuous Delivery' /}
 
+${updateInfo.raw()}<br>
+<b>Todos os arquivos:</b>
 <ul>
     #{list items:files, as:'file' }
-        <li>${file.relativePath.yesno(file.relativePath + ':','') } <a href="${filesRootPath}/${file.webPath}">${file.nameWithoutExt}</a> (<a href="${filesRootPath}/${file.nameWithoutExt}.html">html</a>)</li>
+    <li>${file.relativePath.yesno(file.relativePath + ':','') } <a href="${filesRootPath}/${file.webPath}">${file.nameWithoutExt}</a>
+        (<a href="${filesRootPath}/${file.nameWithoutExt}.html">html</a>)
+    </li>
     #{/list}
 </ul>
